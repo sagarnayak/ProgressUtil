@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.res.ColorStateList
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.view.LayoutInflater
@@ -15,7 +16,7 @@ import com.sagar.progress.databinding.ProgressLayoutBinding
 import com.sagar.utils.UiUtil
 import java.util.*
 
-class ProgressUtil(private val context: Context) {
+class ProgressUtil(private val context: Context, private val color: Int) {
 
     companion object {
         const val UPLOAD_PROGRESS = "uploadProgress"
@@ -37,6 +38,7 @@ class ProgressUtil(private val context: Context) {
         dialog = Dialog(context, R.style.progressBarTheme)
 
         val dialogBinding = ProgressLayoutBinding.inflate(LayoutInflater.from(context))
+        dialogBinding.progressBar.progressTintList = ColorStateList.valueOf(color)
 
         dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
         dialog.setContentView(dialogBinding.root)
