@@ -7,11 +7,13 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.res.ColorStateList
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.view.LayoutInflater
 import android.widget.ProgressBar
+import androidx.core.content.ContextCompat
 import com.sagar.progress.databinding.ProgressLayoutBinding
 import com.sagar.utils.UiUtil
 import java.util.*
@@ -38,7 +40,11 @@ class ProgressUtil(private val context: Context, private val color: Int) {
         dialog = Dialog(context, R.style.progressBarTheme)
 
         val dialogBinding = ProgressLayoutBinding.inflate(LayoutInflater.from(context))
-        dialogBinding.progressBar.progressTintList = ColorStateList.valueOf(color)
+
+        dialogBinding.progressBar.indeterminateDrawable.colorFilter = PorterDuffColorFilter(
+            ContextCompat.getColor(context, color),
+            PorterDuff.Mode.MULTIPLY
+        )
 
         dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
         dialog.setContentView(dialogBinding.root)
